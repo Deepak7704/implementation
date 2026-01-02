@@ -1,27 +1,23 @@
-import { useReducer } from "react";
-type stateType = {
-  count : number
-}
-type ActionType =  | { type: "increment" } | { type : "decrement" } 
-function reducerFunction(state:stateType,action:ActionType):stateType{
-  switch(action.type){
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      throw new Error("Unknow case");
-  }
-}
+import { useState } from "react";
+import {ChatRoom} from "./chatApp";
 export function App() {
-  const [state,dispatch] = useReducer(reducerFunction,{count:0});
+  const [roomId,setRoomId] = useState('general');
+  const [show,setShow] = useState(false);
   return (
-    <div className="app">
-      <p>count:{state.count}</p>
-      <button onClick={() => dispatch({type:"increment"})}>increment</button>
-      <button onClick={() => dispatch({type:"decrement"})}>decrement</button>
-    </div>
-  );
+    <>
+      <label>
+        choose the chat room {' '}
+        <select value={roomId} onChange={e => setRoomId(e.target.value)}>
+          <option value = "general">General</option>
+          <option value = "music">Music</option>
+          <option value = "travel">Travel</option>
+        </select>
+      </label>
+      <button onClick={()=>setShow(!show)}>{show ? 'close chat' : 'open chat'}</button>
+      {show && <hr/>}
+      {show && <ChatRoom roomId = {roomId}/> }
+    </>
+  )  
 }
 
 export default App;

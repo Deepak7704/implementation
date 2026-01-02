@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth",AuthenticationRouter);
-app.use("/api/users",userRoutes);
-app.use("/api/users",postRoutes);
+// app.use("/api/users",userRoutes);
+// app.use("/api/users",postRoutes);
 
 
 app.listen(PORT,()=>{
